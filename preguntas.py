@@ -41,6 +41,7 @@ def pregunta_02():
     """
     return
 
+# si me da?
 
 def pregunta_03():
     """
