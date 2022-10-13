@@ -23,14 +23,14 @@ def pregunta_01():
     214
 
     """
-with open(r"C:\Users\Win10Prox64\OneDrive - INTERCONEXION ELECTRICA S.A. E.S.P\Documentos\GitHub\programacion-en-python-adcalderonc\data.csv", "r") as file:
-data = file.readlines()
-data[0:2]
-data_events = [line.replace("\n", "") for line in data]
-data_events = [line.split('\t') for line in data_events]
-data_events= [line[1:2] for line in data_events]
-data_events= [int(line[0]) for line in data_events]
-return (sum(data_events))
+    with open(r"C:\Users\Win10Prox64\OneDrive - INTERCONEXION ELECTRICA S.A. E.S.P\Documentos\GitHub\programacion-en-python-adcalderonc\data.csv", "r") as file:
+    data = file.readlines()
+    data[0:2]
+    data_events = [line.replace("\n", "") for line in data]
+    data_events = [line.split('\t') for line in data_events]
+    data_events= [line[1:2] for line in data_events]
+    data_events= [int(line[0]) for line in data_events]
+    return (sum(data_events))
 
 
 def pregunta_02():
