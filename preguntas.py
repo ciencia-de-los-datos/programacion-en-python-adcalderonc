@@ -23,7 +23,7 @@ def pregunta_01():
     214
 
     """
-    with open(r"C:\Users\Win10Prox64\OneDrive - INTERCONEXION ELECTRICA S.A. E.S.P\Documentos\GitHub\programacion-en-python-adcalderonc\data.csv", "r") as file:
+    with open(r"data.csv", "r") as file:
         data = file.readlines()
     data[0:2]
     data_events = [line.replace("\n", "") for line in data]
