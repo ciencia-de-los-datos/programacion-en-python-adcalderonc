@@ -12,7 +12,8 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 from lib2to3.pgen2 import driver
-
+with open(r"data.csv", "r") as file:
+   data = file.readlines()
 
 
 def pregunta_01():
@@ -48,7 +49,22 @@ def pregunta_02():
     ]
 
     """
-    return
+    data_dos = [line.replace("\n", "") for line in data]
+    data_dos = [line.split('\t') for line in data_dos]
+    data_dos= [line[0] for line in data_dos]
+    from collections import Counter
+    from operator import itemgetter
+
+    letras= Counter((data_dos))
+    d1 = letras
+    l2 =[]
+
+    for i in d1:
+        tpl = (i, d1[i])
+        l2.append(tpl)
+
+    l2.sort(key=itemgetter(0), reverse=False)
+    return l2
 
 # si me da?
 
@@ -67,7 +83,41 @@ def pregunta_03():
     ]
 
     """
-    return
+    from operator import itemgetter
+    data_tres = [line.replace("\n", "") for line in data]
+    data_tres = [line.split('\t') for line in data_tres]
+    data_tres= [line[0:2] for line in data_tres]
+    diccionario={}
+    sumadorA=0
+    sumadorB=0
+    sumadorC=0
+    sumadorD=0
+    sumadorE=0
+    for row in data_tres:
+        if row[0]=='A':
+            sumadorA+=int(row[1])
+            diccionario[row[0]]= sumadorA
+        elif row[0]=='B':
+            sumadorB+=int(row[1])
+            diccionario[row[0]]= sumadorB
+        elif row[0]=='C':
+            sumadorC+=int(row[1])
+            diccionario[row[0]]= sumadorC
+        elif row[0]=='D':
+            sumadorD+=int(row[1])
+            diccionario[row[0]]= sumadorD
+        elif row[0]=='E':
+            sumadorE+=int(row[1])
+            diccionario[row[0]]= sumadorE
+    d2 = diccionario
+    l3 =[]
+
+    for i in d2:
+            tpl = (i, d2[i])
+            l3.append(tpl)
+
+    l3.sort(key=itemgetter(0), reverse=False)
+    return l3
 
 
 def pregunta_04():
