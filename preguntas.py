@@ -258,7 +258,7 @@ def pregunta_06():
 
     def organizador(lista):
         etiqueta= lista[0] 
-        valor= lista[1]
+        valor= int(lista[1])
         ind_etiqueta=None
         if len(listaordenada) ==0: 
             listaordenada.append([etiqueta,[valor]])
@@ -274,7 +274,7 @@ def pregunta_06():
 
 
     def tuplas(lista):
-        listatuplas.append((lista[0], int(min(lista[1])), int(max(lista[1]))))
+        listatuplas.append((lista[0], min(lista[1]), max(lista[1])))
 
     for i in data_seis:
         for j in i[0].split(','):
