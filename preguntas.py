@@ -11,6 +11,9 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+from lib2to3.pgen2 import driver
+with open(r"data.csv", "r") as file:
+   data = file.readlines()
 
 
 def pregunta_01():
@@ -21,7 +24,14 @@ def pregunta_01():
     214
 
     """
-    return
+    with open(r"data.csv", "r") as file:
+        data = file.readlines()
+    data[0:2]
+    data_events = [line.replace("\n", "") for line in data]
+    data_events = [line.split('\t') for line in data_events]
+    data_events= [line[1:2] for line in data_events]
+    data_events= [int(line[0]) for line in data_events]
+    return (sum(data_events))
 
 
 def pregunta_02():
@@ -39,8 +49,24 @@ def pregunta_02():
     ]
 
     """
-    return
+    data_dos = [line.replace("\n", "") for line in data]
+    data_dos = [line.split('\t') for line in data_dos]
+    data_dos= [line[0] for line in data_dos]
+    from collections import Counter
+    from operator import itemgetter
 
+    letras= Counter((data_dos))
+    d1 = letras
+    l2 =[]
+
+    for i in d1:
+        tpl = (i, d1[i])
+        l2.append(tpl)
+
+    l2.sort(key=itemgetter(0), reverse=False)
+    return l2
+
+# si me da?
 
 def pregunta_03():
     """
@@ -57,7 +83,41 @@ def pregunta_03():
     ]
 
     """
-    return
+    from operator import itemgetter
+    data_tres = [line.replace("\n", "") for line in data]
+    data_tres = [line.split('\t') for line in data_tres]
+    data_tres= [line[0:2] for line in data_tres]
+    diccionario={}
+    sumadorA=0
+    sumadorB=0
+    sumadorC=0
+    sumadorD=0
+    sumadorE=0
+    for row in data_tres:
+        if row[0]=='A':
+            sumadorA+=int(row[1])
+            diccionario[row[0]]= sumadorA
+        elif row[0]=='B':
+            sumadorB+=int(row[1])
+            diccionario[row[0]]= sumadorB
+        elif row[0]=='C':
+            sumadorC+=int(row[1])
+            diccionario[row[0]]= sumadorC
+        elif row[0]=='D':
+            sumadorD+=int(row[1])
+            diccionario[row[0]]= sumadorD
+        elif row[0]=='E':
+            sumadorE+=int(row[1])
+            diccionario[row[0]]= sumadorE
+    d2 = diccionario
+    l3 =[]
+
+    for i in d2:
+            tpl = (i, d2[i])
+            l3.append(tpl)
+
+    l3.sort(key=itemgetter(0), reverse=False)
+    return l3
 
 
 def pregunta_04():
@@ -82,7 +142,31 @@ def pregunta_04():
     ]
 
     """
-    return
+    from collections import Counter
+    from operator import itemgetter
+
+
+    data_cuatro =[line.replace("\n", "") for line in data]
+    data_cuatro = [line.split('\t') for line in data_cuatro]
+    data_cuatro= [line[2] for line in data_cuatro]
+    #print(data_cuatro)
+
+
+    prueba= []
+
+    for row in data_cuatro:
+        prueba.append(row[5:7])
+
+    d1 = Counter((prueba))
+    l2 =[]
+
+    for i in d1:
+        tpl = (i, d1[i])
+        l2.append(tpl)
+
+    l2.sort(key=itemgetter(0), reverse=False)
+
+    return l2
 
 
 def pregunta_05():
@@ -100,7 +184,42 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open(r"data.csv", "r") as file:
+        data = file.readlines()
+    data_cinco = [line.replace("\n", "") for line in data]
+    data_cinco = [line.split('\t') for line in data_cinco]
+    data_cinco= [line[0:2] for line in data_cinco]
+
+    listaordenada=[]
+    listatuplas=[]
+
+    def organizador(lista):
+        etiqueta= lista[0] 
+        valor= lista[1]
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append([etiqueta,[valor]])
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append([etiqueta,[valor]])
+            else:
+                listaordenada[ind_etiqueta][1].append(valor)
+
+
+    def tuplas(lista):
+        listatuplas.append((lista[0], int(max(lista[1])), int(min(lista[1]))))
+
+    for row in data_cinco:
+        organizador(row)
+    for row in listaordenada:
+        tuplas(row)
+    a=sorted(listatuplas)
+
+    return a
 
 
 def pregunta_06():
@@ -125,7 +244,52 @@ def pregunta_06():
     ]
 
     """
-    return
+    with open(r"data.csv", "r") as file:
+        data = file.readlines()
+
+    data_seis = [line.replace("\n", "") for line in data]
+    data_seis = [line.split('\t') for line in data_seis]
+    data_seis= [line[4:5] for line in data_seis]
+
+
+    lista_dic=[]
+    listaordenada=[]
+    listatuplas=[]
+
+    def organizador(lista):
+        etiqueta= lista[0] 
+        valor= int(lista[1])
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append([etiqueta,[valor]])
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append([etiqueta,[valor]])
+            else:
+                listaordenada[ind_etiqueta][1].append(valor)
+
+
+    def tuplas(lista):
+        listatuplas.append((lista[0], min(lista[1]), max(lista[1])))
+
+    for i in data_seis:
+        for j in i[0].split(','):
+            token= j.split(':')
+            lista_dic.append(token)
+
+    for row in lista_dic:
+        organizador(row)
+
+    for row in listaordenada:
+        tuplas(row)
+
+    b=sorted(listatuplas)
+
+    return b
 
 
 def pregunta_07():
@@ -149,7 +313,35 @@ def pregunta_07():
     ]
 
     """
-    return
+    data_siete = [line.replace("\n", "") for line in data]
+    data_siete = [line.split('\t') for line in data_siete]
+    data_siete= [line[0:2] for line in data_siete]
+
+
+    listaordenada=[]
+
+    def organizador(lista):
+        etiqueta= int(lista[1]) 
+        valor= lista[0]
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append((etiqueta,[valor]))
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append((etiqueta,[valor]))
+            else:
+                listaordenada[ind_etiqueta][1].append(valor)
+
+    for row in data_siete:
+        organizador(row)
+
+    f=sorted(listaordenada)
+
+    return f
 
 
 def pregunta_08():
@@ -174,7 +366,36 @@ def pregunta_08():
     ]
 
     """
-    return
+    data_ocho = [line.replace("\n", "") for line in data]
+    data_ocho = [line.split('\t') for line in data_ocho]
+    data_ocho= [line[0:2] for line in data_ocho]
+
+
+    listaordenada=[]
+
+    def organizador(lista):
+        etiqueta= int(lista[1]) 
+        valor= lista[0]
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append((etiqueta,[valor]))
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append((etiqueta,[valor]))
+            else:
+                if valor not in listaordenada[ind_etiqueta][1] :
+                    listaordenada[ind_etiqueta][1].append(valor)
+                    listaordenada[ind_etiqueta][1].sort()
+
+    for row in data_ocho:
+        organizador(row)
+
+  
+    return sorted(listaordenada)
 
 
 def pregunta_09():
@@ -197,7 +418,48 @@ def pregunta_09():
     }
 
     """
-    return
+    data_nueve = [line.replace("\n", "") for line in data]
+    data_nueve = [line.split('\t') for line in data_nueve]
+    data_nueve= [line[4:5] for line in data_nueve]
+
+
+    lista_dic=[]
+    listaordenada=[]
+    listatuplas=[]
+
+    def organizador(lista):
+        etiqueta= lista[0] 
+        valor= lista[1]
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append([etiqueta,[valor]])
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append([etiqueta,[valor]])
+            else:
+                listaordenada[ind_etiqueta][1].append(valor)
+
+
+    def tuplas(lista):
+        listatuplas.append((lista[0], len(lista[1])))
+
+    for i in data_nueve:
+        for j in i[0].split(','):
+            token= j.split(':')
+            lista_dic.append(token)
+
+    for row in lista_dic:
+        organizador(row)
+
+    for row in sorted(listaordenada):
+        tuplas(row)
+
+        
+    return dict(listatuplas)
 
 
 def pregunta_10():
@@ -218,7 +480,25 @@ def pregunta_10():
 
 
     """
-    return
+    data_diez = [line.replace("\n", "") for line in data]
+    data_diez = [line.split('\t') for line in data_diez]
+    data_diez= [line[0:5] for line in data_diez]
+
+
+    listaordenada=[]
+
+    def organizador(lista):
+        etiqueta= lista[0] 
+        valor1= len(lista[3].split(','))
+        valor2= len(lista[4].split(','))
+        listaordenada.append((etiqueta, valor1, valor2))
+
+
+    for row in data_diez:
+        organizador(row)
+
+
+    return listaordenada
 
 
 def pregunta_11():
@@ -239,7 +519,46 @@ def pregunta_11():
 
 
     """
-    return
+    data_once = [line.replace("\n", "") for line in data]
+    data_once = [line.split('\t') for line in data_once]
+    data_once= [line[1:4] for line in data_once]
+
+
+    lista_dic=[]
+    listaordenada=[]
+    listatuplas=[]
+
+    def organizador(lista):
+        etiqueta= lista[0] 
+        valor= int(lista[1])
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append([etiqueta,[valor]])
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append([etiqueta,[valor]])
+            else:
+                listaordenada[ind_etiqueta][1].append(valor)
+
+
+    def tuplas(lista):
+        listatuplas.append((lista[0], sum(lista[1])))
+
+    for i in data_once:
+        for j in i[2].split(','):
+            lista_dic.append([j,i[0]])
+
+    for row in lista_dic:
+        organizador(row)
+
+    for row in sorted(listaordenada):
+        tuplas(row)
+    
+    return dict(listatuplas)
 
 
 def pregunta_12():
@@ -257,4 +576,43 @@ def pregunta_12():
     }
 
     """
-    return
+    data_doce = [line.replace("\n", "") for line in data]
+    data_doce = [line.split('\t') for line in data_doce]
+    data_doce= [line[0:5] for line in data_doce]
+
+    lista_dic=[]
+    listaordenada=[]
+    listatuplas=[]
+
+    def organizador(lista):
+        etiqueta= lista[0] 
+        valor= int(lista[1])
+        ind_etiqueta=None
+        if len(listaordenada) ==0: 
+            listaordenada.append([etiqueta,[valor]])
+        else:
+            for index, row in enumerate(listaordenada):
+                if etiqueta in row:
+                    ind_etiqueta=index
+                    break
+            if ind_etiqueta is None:
+                listaordenada.append([etiqueta,[valor]])
+            else:
+                listaordenada[ind_etiqueta][1].append(valor)
+
+
+    def tuplas(lista):
+        listatuplas.append((lista[0], sum(lista[1])))
+
+    for i in data_doce:
+        for j in i[4].split(','):
+            token= j.split(':')
+            lista_dic.append([i[0],int(token[1])])
+
+    for row in lista_dic:
+        organizador(row)
+
+    for row in sorted(listaordenada):
+        tuplas(row)
+
+    return dict(listatuplas)
